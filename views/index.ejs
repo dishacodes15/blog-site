@@ -1,0 +1,25 @@
+<div class="author">
+    <h1 class="author_heading">Hi, i'm Disha.</h1>
+    <p class="author_body">A UG student finding my way around the world of tech.</p>
+</div>
+<img src="https://i.gifer.com/FTLF.gif" class="hero-image" width="900" height="500">
+
+<section class="articles">
+    <h2 class="articles_heading">Latest Posts</h2>
+
+    <ul class="article-ul">
+
+        <% data.forEach(post => { %>
+         
+        <li >
+            <a href="/post/<%= post._id %>">
+                <span><%= post.title %></span>
+                <span class="article-list_data"><%= post.createdAt.toDateString() %></span>
+            </a>
+        </li>
+        <% }) %>
+    </ul>
+    <% if (nextPage!==null) { %>
+    <a href="/?page=<%= nextPage %>" class="pagination">&lt;View Older Posts</a>
+    <% } %>
+</section>

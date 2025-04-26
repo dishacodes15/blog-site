@@ -1,0 +1,575 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
+
+:root {
+    /* Ghibli Light Mode Colors - Warmer Background */
+    --bg-color: #ebead3;             /* Warm Beige (Linen) - Warmer */
+    --text-color: #4A443B;           /* Dark Earthy Brown */
+    --secondary-text-color: #8A8175; /* Lighter Earthy Brown */
+    --border-color: #E0D8CC;         /* Soft Earthy Tone - Adjusted */
+    --accent-color: #8FBC8F;         /* Sage Green (DarkSeaGreen) */
+    --link-color: var(--text-color);
+    --button-bg-color: var(--accent-color);
+    --button-text-color: var(--bg-color); /* Contrast with Sage Green (will update automatically) */
+    --input-bg-color: #FFFBF5;       /* Lighter Warm Beige - Adjusted */
+    --input-text-color: var(--text-color);
+    --input-border-color: var(--secondary-text-color);
+    --shadow-color: rgba(74, 68, 59, 0.2); /* Soft Brown Shadow */
+    --noise-image: url("/img/img-noise-361x370.png"); /* Keep or adjust as needed */
+    --searchbar-bg: var(--text-color); /* Dark Brown */
+    --searchbar-text: var(--bg-color); /* Warm Beige (will update automatically) */
+    --accent-color-rgb: 143, 188, 143; /* RGB for Sage Green */
+  
+    /* Font Sizes */
+    --font-size-base: 1rem;
+    --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+    --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+    --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+  
+    /* Other Variables */
+    --border-radius: 10px;
+}
+/* Ghibli Dark Mode Color Overrides */
+body.dark-mode {
+  --bg-color: #3B4A3F;             /* Deep Muted Green */
+  --text-color:#ebead3;           /* Light Beige/Off-white */
+  --secondary-text-color: #9EAD9F; /* Lighter Muted Green */
+  --border-color: #2A352D;         /* Darker Muted Green */
+  --accent-color: #A8D8A8;         /* Lighter Sage Green */
+  --link-color: var(--text-color);
+  --button-bg-color: var(--accent-color);
+  --button-text-color: #3B4A3F;    /* Dark Green for contrast */
+  --input-bg-color: #2A352D;       /* Darker Muted Green */
+  --input-text-color: var(--text-color);
+  --input-border-color: var(--secondary-text-color);
+  --shadow-color: rgba(232, 224, 213, 0.1); /* Subtle Light Shadow */
+  --noise-image: none;             /* Remove noise in dark mode */
+  --searchbar-bg: #2A352D;         /* Darker Muted Green */
+  --searchbar-text: var(--text-color); /* Light Beige */
+  --accent-color-rgb: 168, 216, 168; /* RGB for Lighter Sage Green */
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  background-color: var(--bg-color);
+  background-image: var(--noise-image);
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+a {
+  color: var(--link-color);
+  transition: color 0.3s ease;
+}
+h1 { font-size: var(--font-size-xl); }
+h2 { font-size: var(--font-size-lg); }
+h3 { font-size: var(--font-size-md); }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+select,
+textarea {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  margin-bottom: 1rem;
+  background-color: var(--input-bg-color); /* Use variable */
+  color: var(--input-text-color); /* Use variable */
+  border: 1px solid var(--input-border-color); /* Added a subtle border */
+  border-radius: 5px; /* Optional: slight rounding */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Add focus styles for better accessibility */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(var(--accent-color-rgb), 0.3); /* Use RGB for opacity */
+}
+
+/* Helper to define accent color RGB for box-shadow - Moved inside :root and body.dark-mode */
+
+#darkModeToggle {
+    border: none;         /* Remove default border */
+    outline: none;        /* Remove focus outline */
+    background: none;     /* Make background transparent */
+    padding: 0;           /* Remove default padding */
+    cursor: pointer;      /* Keep the pointer cursor */
+    line-height: 0;       /* Prevent extra space if icons are inline-block */
+    vertical-align: middle; /* Align button nicely with other nav items */
+}
+
+  /* Optional: Add focus styles for accessibility */
+  #darkModeToggle:focus-visible {
+    outline: 2px solid var(--accent-color); /* Use accent color for focus */
+    outline-offset: 2px;
+  }
+
+  /* --- Dark Mode Toggle Icon Visibility & Styling --- */
+
+  /* Default (Light Mode): Hide sun, show moon */
+  #darkModeToggle .sun-icon {
+    display: none;
+  }
+  #darkModeToggle .moon-icon {
+    display: inline-block; /* Use inline-block or block */
+    stroke: var(--text-color); /* Style the stroke based on theme */
+    transition: stroke 0.3s ease;
+  }
+
+  /* Dark Mode: Hide moon, show sun */
+  body.dark-mode #darkModeToggle .moon-icon {
+    display: none;
+  }
+  body.dark-mode #darkModeToggle .sun-icon {
+    display: inline-block; /* Use inline-block or block */
+    stroke: var(--text-color); /* Style the stroke based on theme */
+    transition: stroke 0.3s ease;
+  }
+
+  /* Ensure SVGs within the button have consistent size */
+  #darkModeToggle svg {
+    width: 24px;  /* Match the width in your HTML */
+    height: 24px; /* Match the height in your HTML */
+    vertical-align: middle; /* Align icon within the button */
+  }
+
+
+  
+.btn {
+  background-color: var(--button-bg-color);
+  border: none;
+  color: var(--button-text-color);
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; /* Consistent rounding */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-delete {
+  padding: 10px 16px;
+  background-color: #C08081; /* A muted, earthy red for delete */
+  color: var(--bg-color); /* Use background color for text */
+}
+
+/* Adjust delete button for dark mode if needed */
+body.dark-mode .btn-delete {
+  background-color: #D89899; /* Slightly lighter muted red */
+  color: var(--bg-color); /* Keep text light */
+}
+
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* Layout */
+.container {
+  max-width: 982px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.main {
+  padding: 20px 0;
+}
+
+/* Hero Section */
+.hero-image {
+  max-height: 528px;
+  filter: drop-shadow(0px 44px 34px var(--shadow-color)); /* Use variable */
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  transition: filter 0.3s ease;
+}
+
+
+/* Main Header */
+.header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "logo button"
+  "menu menu";
+  padding-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+    "logo menu button";
+  }
+}
+
+.header__logo {
+  font-weight: 800;
+  font-size: 25px;
+  text-decoration: none;
+  grid-area: logo;
+  color: var(--text-color); /* Ensure logo color changes */
+  transition: color 0.3s ease;
+}
+
+.header__logo:hover {
+  text-decoration: underline;
+}
+
+.header__nav {
+  justify-content: center;
+  display: flex;
+  grid-area: menu;
+}
+
+.header__logo, .header__nav, .header__button {
+  width: 100%;
+}
+
+.header__button {
+  display: flex;
+  justify-content: end;
+  grid-area: button;
+}
+
+.header__button button {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  border: 0;
+  padding: 6px 12px;
+  background: none;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color); /* Use variable */
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.header__button button:hover {
+  border: 2px solid var(--text-color); /* Use variable */
+}
+
+
+
+/* Header -> Navigation */
+.header__nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 1rem;
+  font-weight: 600;
+  padding: 0;
+}
+
+.header__nav ul a {
+  padding: 10px;
+  text-decoration: none;
+  color: var(--link-color); /* Use variable */
+  font-size: 1.1rem;
+}
+
+.header__nav ul a.active {
+  color: var(--secondary-text-color); /* Use variable */
+}
+
+.header__nav ul a:hover {
+  text-decoration: underline;
+}
+
+/* Author - HomePage */
+.author {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.author__heading {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.author__body {
+  font-size: var(--font-size-md);
+  margin: 5px 0 40px 0;
+}
+
+
+/* Home Article List */
+.articles__heading {
+  margin-top: 4rem;
+  font-weight: 400;
+}
+
+.article-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.article-list__date {
+  font-size: 1rem;
+  color: var(--secondary-text-color); /* Use variable */
+  width: 100px;
+  display: inline-block;
+  width: 260px;
+  transition: color 0.3s ease;
+}
+
+.article-ul li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  margin: 18px 0;
+  color: var(--link-color); /* Ensure link color applies here too */
+}
+
+@media only screen and (min-width: 768px) {
+  .article-ul li a {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .article-list__date {
+    text-align: right;
+  }
+}
+
+.article-ul li {
+  font-size: 24px;
+  cursor: pointer;
+  transition: filter 0.1s, border-color 0.3s ease; /* Add border transition */
+}
+
+.article-ul li:not(:last-child) {
+  border-bottom: 1px solid var(--border-color); /* Use variable */
+}
+
+.article-ul li:hover {
+  filter: none;
+}
+
+.article-ul:hover li {
+  filter: blur(3px);
+}
+
+.article-ul:hover li:hover {
+  filter: none;
+}
+
+
+.article {
+  white-space: pre-wrap;
+}
+
+
+/* Footer */
+.footer {
+  margin: 4rem;
+  text-align: center;
+  color: var(--secondary-text-color); /* Use secondary color for footer */
+  transition: color 0.3s ease;
+}
+
+
+/* Dashboard Admin */
+.admin-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-posts {
+  padding: 0;
+  margin: 0;
+}
+
+.admin-post-controls form {
+  display: inline-block;
+}
+
+.admin-post-controls .btn  {
+  display: inline-block;
+  /* Use standard .btn styles defined above */
+  border: 0;
+  text-decoration: none;
+  font-size: .8rem;
+  padding: 4px 8px;
+  line-height: 2;
+}
+
+.admin-posts li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color); /* Use variable */
+  transition: border-color 0.3s ease;
+}
+/* Remove border from last item */
+.admin-posts li:last-child {
+    border-bottom: none;
+}
+
+/* SeachBar */
+.searchBar {
+  visibility: hidden;
+  transform: translateY(-100px);
+  background-color: var(--searchbar-bg); /* Use variable */
+  padding: 4px 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  transition: transform 0.1s, background-color 0.3s ease, visibility 0s linear 0.1s; /* Delay visibility change */
+}
+
+
+.searchBar.open {
+  transform: translateY(0);
+  visibility: visible; /* Make visible when open */
+  transition: transform 0.1s, background-color 0.3s ease;
+}
+
+.searchBar input {
+  margin: 0;
+  border: 0;
+  background-color: transparent; /* Make input bg transparent within searchbar */
+  color: var(--searchbar-text); /* Use variable */
+}
+/* Remove focus styles within searchbar if desired */
+.searchBar input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+#searchClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--searchbar-text); /* Use variable */
+  padding: 15px;
+  background: none; /* Ensure no background */
+  border: none; /* Ensure no border */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+
+.pagination {
+  font-size: 1.3rem;
+  color: var(--secondary-text-color); /* Use variable */
+  text-decoration: none;
+  margin-top: 40px;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.pagination:hover {
+  color: var(--text-color); /* Use variable */
+}
+
+/* Keep container mainly for margins or overall width */
+.about-container {
+    margin-bottom: 2rem;
+}
+
+/* Add overflow: hidden to contain the float */
+.about-text {
+   overflow: hidden; /* This helps contain the floated element */
+}
+
+.about-text h1 {
+  margin-bottom: 1rem; /* Space below heading */
+}
+
+/* Style the image container now nested inside about-text */
+.about-text .about-image { /* Use a more specific selector */
+  float: right; /* Float the image to the RIGHT */
+  width: 200px; /* Increased width (adjust as needed, e.g., 200px, 250px) */
+  /* Change margin-right to margin-left for space on the left */
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem; /* Optional space below the image before text wraps under */
+  /* margin-right: 0; */ /* Remove or set right margin to 0 */
+}
+
+.about-text .about-image img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Prevents extra space below image */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+/* Paragraphs will wrap automatically. Ensure they have some bottom margin */
+.about-text p {
+  margin-bottom: 1em; /* Or your standard paragraph margin */
+  line-height: 1.6; /* Optional: Adjust for readability */
+}
+
+/* Responsive adjustments (Optional: stack image on small screens) */
+@media (max-width: 576px) { /* Adjust breakpoint as needed */
+  .about-text .about-image {
+    float: none; /* Stop floating */
+    display: block; /* Make it a block element */
+    margin: 0 auto 1.5rem auto; /* Center the image horizontally, add space below */
+    /* Keep or adjust the width for mobile */
+    width: 180px; /* Maybe slightly smaller than desktop but bigger than before */
+    /* Reset left margin for mobile stacking */
+    margin-left: auto;
+  }
+  .about-text {
+     overflow: visible; /* Reset overflow */
+     /* Optional: center text on mobile if image is centered */
+     /* text-align: center; */
+  }
+}
+
+.social-links-section {
+    text-align: center; /* Center the heading */
+    margin-top: 2rem; /* Add some space above this section */
+    margin-bottom: 2rem; /* Add some space below this section */
+  }
+  
+  .social-links-section h2 {
+    margin-bottom: 1rem; /* Space below the heading */
+  }
+  
+  .social-links {
+    display: flex; /* Arrange links horizontally */
+    justify-content: center; /* Center the links within the container */
+    align-items: center; /* Align items vertically */
+    gap: 1rem; /* Add space between the links */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens if needed */
+  }
+  
+  .social-links a {
+    display: inline-block; /* Ensures link behaves like a block for layout */
+    line-height: 0; /* Prevents extra space below image caused by line height */
+  }
+  
+  .social-links img {
+    height: 30px; /* Adjust height to make icons smaller (e.g., 25px, 30px, 35px) */
+    width: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Helps with alignment */
+  }
+  
+
+  
